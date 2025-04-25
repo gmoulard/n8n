@@ -1,0 +1,169 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AWS Bedrock Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-24T10:45:13.207Z",
+  "id": "0auppnCzOAaCgjeU",
+  "meta": {
+    "templateId": "PT1i+zU92Ii5O2XCObkhfHJR5h9rNJTpiCIkYJk9jHU=",
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Send EMAIL bedrock",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "051631db-97ef-44e7-81fc-0c887f378da6",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        360,
+        20
+      ],
+      "webhookId": "5ee1fdf0-1eca-495b-8872-4d11d79d5d0d"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a helpful assistant who helps the user write extremely polite and poetic emails to their correspondents. The email format is in HTML with a nice layout. When information is missing, you must request it before sending any emails."
+        }
+      },
+      "id": "3b5942f0-300c-458f-ace7-74dfd470cd3c",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        560,
+        20
+      ]
+    },
+    {
+      "parameters": {
+        "content": "\n\n\n\n\n\n\n\n\n\n\n\nDon't have **Google Calendar**? Simply exchange this with the **Microsoft Outlook** or other tools",
+        "height": 253,
+        "width": 226,
+        "color": 7
+      },
+      "id": "05e280cf-7d68-4802-916f-46bc5219ceb6",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        900,
+        280
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "99601302-71d1-4a07-86d0-2aa3fa07efca",
+      "name": "Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        640,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        820,
+        240
+      ],
+      "id": "fad44586-7be5-4d37-a0b4-5350053de8af",
+      "name": "Gmail",
+      "webhookId": "bcffb59b-f16a-422f-97ff-8c77d30725fe",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ItbTQ7TkDwS7VqUL",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "options": {
+          "maxTokensToSample": 2000,
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        460,
+        240
+      ],
+      "id": "9e85a95f-4ffa-43db-a3b5-b798ce18a961",
+      "name": "AWS Bedrock Chat Model",
+      "credentials": {
+        "aws": {
+          "id": "Odg3O34ltsyYJyT2",
+          "name": "AWS account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-04-24T15:39:12.000Z",
+  "versionId": "3b1bd8dc-0017-4188-8630-32968c118550"
+}
