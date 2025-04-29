@@ -658,7 +658,7 @@
               "id": "452efa28-2dc6-4ea3-a7a2-c35d100d0382",
               "name": "repo.name",
               "type": "string",
-              "value": "n8n-backups"
+              "value": "n8n"
             },
             {
               "id": "81c4dc54-86bf-4432-a23f-22c7ea831e74",
@@ -846,6 +846,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-04-25T14:54:56.000Z",
-  "versionId": "34505e8f-b8a1-402f-af79-851529f305d3"
+  "updatedAt": "2025-04-29T10:20:35.000Z",
+  "versionId": "89d6eef8-3d24-4f3f-9a5d-0742202be978"
 }
