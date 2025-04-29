@@ -1,5 +1,5 @@
 {
-  "active": false,
+  "active": true,
   "connections": {
     "When chat message received": {
       "main": [
@@ -155,7 +155,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "creationFichierGitHub",
+  "name": "creationBlogpostGitHub",
   "nodes": [
     {
       "parameters": {
@@ -173,10 +173,7 @@
     },
     {
       "parameters": {
-        "agent": "conversationalAgent",
-        "options": {
-          "systemMessage": "Créer un fichier dans le git pour un blog fait avec Hugo en markdown pour le post: {{ $('AI Agent').item.json.output }}"
-        }
+        "options": {}
       },
       "id": "3e1f147f-3d41-4c2c-beb2-ae72b94b9711",
       "name": "AI Agent",
@@ -294,7 +291,7 @@
     {
       "parameters": {
         "options": {
-          "gl": "fr"
+          "gl": ""
         }
       },
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
@@ -449,7 +446,7 @@
   },
   "staticData": null,
   "tags": [],
-  "triggerCount": 0,
-  "updatedAt": "2025-04-29T14:10:31.000Z",
-  "versionId": "eff94f54-1199-4600-b7d9-77bae049eada"
+  "triggerCount": 1,
+  "updatedAt": "2025-04-29T14:27:52.000Z",
+  "versionId": "d71e15c9-4cba-41c1-9977-092a49841410"
 }
