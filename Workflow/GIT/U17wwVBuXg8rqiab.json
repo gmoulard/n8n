@@ -587,8 +587,8 @@
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -35.5,
-        19
+        -140,
+        -100
       ],
       "typeVersion": 1
     },
@@ -846,6 +846,6 @@
     }
   ],
   "triggerCount": 1,
-  "updatedAt": "2025-04-29T10:20:35.000Z",
-  "versionId": "89d6eef8-3d24-4f3f-9a5d-0742202be978"
+  "updatedAt": "2025-04-29T10:20:56.000Z",
+  "versionId": "bc3ed388-4fc2-489a-9b21-7bf4d681c0a5"
 }
