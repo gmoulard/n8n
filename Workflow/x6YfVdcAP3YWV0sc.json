@@ -1,0 +1,201 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AWS Bedrock Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Globals": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-28T15:04:44.034Z",
+  "id": "x6YfVdcAP3YWV0sc",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "creationFichierGitHub",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "c11a11a4-151b-48ce-b7d2-ac72c0ab6c76",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        -240
+      ],
+      "webhookId": "5ee1fdf0-1eca-495b-8872-4d11d79d5d0d"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "3e1f147f-3d41-4c2c-beb2-ae72b94b9711",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -260,
+        -240
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "1bc0b589-84a3-44d8-a455-5ffe612bbabc",
+      "name": "Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -140,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "options": {
+          "maxTokensToSample": 2000,
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        100
+      ],
+      "id": "6aca947b-07f6-44c8-a32a-71dcabb1d79b",
+      "name": "AWS Bedrock Chat Model",
+      "credentials": {
+        "aws": {
+          "id": "Odg3O34ltsyYJyT2",
+          "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6cf546c5-5737-4dbd-851b-17d68e0a3780",
+              "name": "repo.owner",
+              "type": "string",
+              "value": "gmoulard"
+            },
+            {
+              "id": "452efa28-2dc6-4ea3-a7a2-c35d100d0382",
+              "name": "repo.name",
+              "type": "string",
+              "value": "n8n-backups"
+            },
+            {
+              "id": "81c4dc54-86bf-4432-a23f-22c7ea831e74",
+              "name": "repo.path",
+              "type": "string",
+              "value": "=Workflow/{{ $json.tags[0].name }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "429e6e63-7f7d-44dc-b635-1913892f4ae0",
+      "name": "Globals",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        -420,
+        -440
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
+        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
+        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.1,
+      "position": [
+        200,
+        60
+      ],
+      "id": "17f6d56d-9d7f-46b6-99e4-f83e0334b01b",
+      "name": "Gmail",
+      "webhookId": "51a51aa1-d07a-4758-997a-5c14d906de9b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ItbTQ7TkDwS7VqUL",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-28T16:15:10.000Z",
+  "versionId": "b3a38a15-a9e8-4468-a8e1-bd6824af4fdd"
+}
