@@ -34,27 +34,66 @@
         ]
       ]
     },
-    "Globals": {
+    "AI Agent": {
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Globals",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "AI Agent": {
+    "Gmail1": {
       "main": [
-        []
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
-    "Gmail": {
+    "AWS Bedrock Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
       "ai_tool": [
         [
           {
             "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Globals": {
+      "main": [
+        [
+          {
+            "node": "Gmail1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
             "type": "ai_tool",
             "index": 0
           }
@@ -78,7 +117,7 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -580,
+        -780,
         -240
       ],
       "webhookId": "5ee1fdf0-1eca-495b-8872-4d11d79d5d0d"
@@ -92,7 +131,7 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        -260,
+        -560,
         -240
       ]
     },
@@ -103,23 +142,23 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        -140,
-        80
+        -500,
+        40
       ]
     },
     {
       "parameters": {
         "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
         "options": {
-          "maxTokensToSample": 2000,
+          "maxTokensToSample": 8000,
           "temperature": 0.7
         }
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
       "typeVersion": 1,
       "position": [
-        -500,
-        100
+        -680,
+        40
       ],
       "id": "6aca947b-07f6-44c8-a32a-71dcabb1d79b",
       "name": "AWS Bedrock Chat Model",
@@ -127,6 +166,92 @@
         "aws": {
           "id": "Odg3O34ltsyYJyT2",
           "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "sendTo": "={{ $('Globals').item.json.emailValidation }}",
+        "subject": "=ok ou non ?  {{ $('When chat message received').item.json.chatInput }}",
+        "message": "=OK pour la page : \n\n{{ $('AI Agent').item.json.output }}\n\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -20,
+        -240
+      ],
+      "id": "a79784f6-b526-4661-831e-bb18e192e1d4",
+      "name": "Gmail1",
+      "webhookId": "074fea41-3a6f-4c49-9727-f2cf0b9d95b0",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ItbTQ7TkDwS7VqUL",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Créer un fichier dans le git pour un blog fait avec Hugo en markdown pour le post: {{ $('AI Agent').item.json.output }}",
+        "options": {
+          "systemMessage": "=",
+          "returnIntermediateSteps": true
+        }
+      },
+      "id": "0b6e6c75-9f6e-446c-9d50-23d0e4560ec5",
+      "name": "AI Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        140,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "options": {
+          "maxTokensToSample": 8000,
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        80,
+        60
+      ],
+      "id": "1202bc99-8e69-404f-9b7b-50fcd5ee7ed9",
+      "name": "AWS Bedrock Chat Model1",
+      "credentials": {
+        "aws": {
+          "id": "Odg3O34ltsyYJyT2",
+          "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "gl": "fr"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        -340,
+        40
+      ],
+      "id": "1ea3392f-e6c5-459a-9814-bf395d865e69",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "PhwBriL6Vbps3Mwh",
+          "name": "SerpAPI account"
         }
       }
     },
@@ -150,41 +275,57 @@
               "id": "81c4dc54-86bf-4432-a23f-22c7ea831e74",
               "name": "repo.path",
               "type": "string",
-              "value": "=Workflow/{{ $json.tags[0].name }}"
+              "value": "=blogs/{{ $json.tags[0].name }}"
+            },
+            {
+              "id": "50e60665-e4a2-4db1-b697-4569068126e4",
+              "name": "emailValidation",
+              "value": "gmoulard@gmail.com",
+              "type": "string"
             }
           ]
         },
         "options": {}
       },
-      "id": "429e6e63-7f7d-44dc-b635-1913892f4ae0",
+      "id": "392e08dd-5320-419a-8c38-2985fca34feb",
       "name": "Globals",
       "type": "n8n-nodes-base.set",
       "position": [
-        -420,
-        -440
+        -200,
+        -240
       ],
       "typeVersion": 3.4
     },
     {
       "parameters": {
-        "sendTo": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('To', ``, 'string') }}",
-        "subject": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Subject', ``, 'string') }}",
-        "message": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Message', ``, 'string') }}",
-        "options": {}
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "gmoulardlard",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "=n8n",
+          "mode": "name"
+        },
+        "filePath": "=Blog",
+        "fileContent": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('File_Content', ``, 'string') }}",
+        "commitMessage": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Commit_Message', ``, 'string') }}"
       },
-      "type": "n8n-nodes-base.gmailTool",
-      "typeVersion": 2.1,
+      "type": "n8n-nodes-base.githubTool",
+      "typeVersion": 1.1,
       "position": [
-        200,
-        60
+        320,
+        20
       ],
-      "id": "17f6d56d-9d7f-46b6-99e4-f83e0334b01b",
-      "name": "Gmail",
-      "webhookId": "51a51aa1-d07a-4758-997a-5c14d906de9b",
+      "id": "c0578b7b-821d-425e-9692-0627cd27e052",
+      "name": "GitHub",
+      "webhookId": "ddfce0a6-0423-4c62-a133-4810b6aca3db",
       "credentials": {
-        "gmailOAuth2": {
-          "id": "ItbTQ7TkDwS7VqUL",
-          "name": "Gmail account"
+        "githubApi": {
+          "id": "ip6f04XJlkJqCZbK",
+          "name": "GitHub account"
         }
       }
     }
@@ -196,6 +337,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-04-28T16:15:10.000Z",
-  "versionId": "b3a38a15-a9e8-4468-a8e1-bd6824af4fdd"
+  "updatedAt": "2025-04-29T10:19:49.000Z",
+  "versionId": "80b19fda-0828-4f4a-a0bc-e1d06c23333e"
 }
