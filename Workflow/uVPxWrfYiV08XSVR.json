@@ -1,0 +1,211 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AWS Bedrock Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-29T14:31:14.447Z",
+  "id": "uVPxWrfYiV08XSVR",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "ListeMusiciens",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "802f85ec-8e99-4aac-b0cf-809a26d650d6",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "5ee1fdf0-1eca-495b-8872-4d11d79d5d0d"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "7ba1f63b-df3b-4774-a208-e8836afcdce8",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "2854db73-f63c-443b-857d-2237b4723f32",
+      "name": "Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        280,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "options": {
+          "maxTokensToSample": 8000,
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        100,
+        280
+      ],
+      "id": "2ab009bd-759b-4541-a9c7-cfeb54849d9d",
+      "name": "AWS Bedrock Chat Model",
+      "credentials": {
+        "aws": {
+          "id": "Odg3O34ltsyYJyT2",
+          "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "gl": ""
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        420,
+        280
+      ],
+      "id": "bb4e05e5-f9a7-49b4-b96c-62520efec3a2",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "PhwBriL6Vbps3Mwh",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        540,
+        280
+      ],
+      "id": "cdec655c-ec48-4c53-b130-c53ee33b0a4f",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('File', ``, 'string') }}",
+          "mode": "url"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3,
+      "position": [
+        700,
+        280
+      ],
+      "id": "d0b68921-d0e5-49b6-8f65-8f2da613b322",
+      "name": "Google Drive1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "GOp1drcs3Ajv51lh",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-29T16:30:00.000Z",
+  "versionId": "4c06ae79-7696-4120-a27a-821e81080f0a"
+}
