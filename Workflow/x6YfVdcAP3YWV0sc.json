@@ -155,7 +155,7 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "name": "creationBlogpostGitHub",
+  "name": "creationBlogPostGitHub",
   "nodes": [
     {
       "parameters": {
@@ -438,6 +438,21 @@
       ],
       "id": "7e4ef9c8-0945-4ac3-ab22-a10e6e02fc75",
       "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "content": "## repo \n\ngithub : https://github.com/gmoulard/n8n\n\nLimite, quand il modifie une page, en fait il l'a remplace !!!",
+        "height": 180,
+        "width": 420
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -800,
+        -460
+      ],
+      "id": "496b1e3d-dfca-405c-943f-b6560874f41c",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -447,6 +462,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-04-29T14:27:52.000Z",
-  "versionId": "d71e15c9-4cba-41c1-9977-092a49841410"
+  "updatedAt": "2025-04-29T15:47:49.000Z",
+  "versionId": "4d56d86d-715b-4aaa-afea-248929d53861"
 }
