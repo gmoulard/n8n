@@ -1,0 +1,299 @@
+{
+  "active": false,
+  "connections": {
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "AWS Bedrock Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        []
+      ]
+    },
+    "Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-30T10:21:08.411Z",
+  "id": "OLXwZEdiBf20r1EV",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Symboles",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Recherche 1 symbole maconique qui n'est pas deja dans la sheets et ajoute le dans la sheets",
+        "options": {
+          "systemMessage": "="
+        }
+      },
+      "id": "67dce974-fd36-48ce-8700-70e1ca4ad920",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -160,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "options": {
+          "maxTokensToSample": 8000,
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        320
+      ],
+      "id": "6f5df5b5-c0ca-4b1f-975e-1a8984788e71",
+      "name": "AWS Bedrock Chat Model",
+      "credentials": {
+        "aws": {
+          "id": "Odg3O34ltsyYJyT2",
+          "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        240,
+        320
+      ],
+      "id": "630fae8e-2ce8-4e54-954c-365badf5d87d",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -120,
+        320
+      ],
+      "id": "1531ab80-2ac3-4ced-ab5a-e9564a4f1d72",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA",
+          "mode": "list",
+          "cachedResultName": "MemoListN8N",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 982231717,
+          "mode": "list",
+          "cachedResultName": "symboles",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA/edit#gid=982231717"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "symbole": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('symbole', ``, 'string') }}",
+            "Obediance": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Obediance', ``, 'string') }}",
+            "descriptioin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('descriptioin', ``, 'string') }}",
+            "grade": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('grade', ``, 'string') }}",
+            "interpretationDegre1": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('interpretationDegre1', ``, 'string') }}",
+            "interpretationDegre2": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('interpretationDegre2', ``, 'string') }}",
+            "interpretationDegre3": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('interpretationDegre3', ``, 'string') }}",
+            "interpretationDegre4": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('interpretationDegre4', ``, 'string') }}",
+            "interpretationDegre5": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('interpretationDegre5', ``, 'string') }}",
+            "rithe": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('rithe', ``, 'string') }}"
+          },
+          "matchingColumns": [
+            "symbole"
+          ],
+          "schema": [
+            {
+              "id": "symbole",
+              "displayName": "symbole",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "rithe",
+              "displayName": "rithe",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Obediance",
+              "displayName": "Obediance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "descriptioin",
+              "displayName": "descriptioin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "grade",
+              "displayName": "grade",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interpretationDegre1",
+              "displayName": "interpretationDegre1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interpretationDegre2",
+              "displayName": "interpretationDegre2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interpretationDegre3",
+              "displayName": "interpretationDegre3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interpretationDegre4",
+              "displayName": "interpretationDegre4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interpretationDegre5",
+              "displayName": "interpretationDegre5",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "useAppend": false
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        80,
+        300
+      ],
+      "id": "968d5d4a-5358-4106-8053-4cd8283875fd",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vcGCddI90w6RjMUC",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -400,
+        0
+      ],
+      "id": "afc4bfc3-0c57-425a-bdb4-9f6f53535803",
+      "name": "When clicking ‘Test workflow’"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-30T10:47:29.000Z",
+  "versionId": "0a14fd97-61b8-4313-8d74-045feedcb5ec"
+}
