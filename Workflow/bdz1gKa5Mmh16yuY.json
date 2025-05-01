@@ -1,0 +1,272 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "AWS Bedrock Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-04-30T10:15:39.283Z",
+  "id": "bdz1gKa5Mmh16yuY",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Musiciens",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "17403a5c-8ea7-4f41-a924-4b18a6b5a274",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -400,
+        0
+      ],
+      "webhookId": "eca6f8db-bb63-423e-bb8b-78ae0a002229"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "="
+        }
+      },
+      "id": "71ef79da-d8db-4141-b6c5-9e4e54555d2f",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -160,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "options": {
+          "maxTokensToSample": 8000,
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        320
+      ],
+      "id": "3c4252de-d031-4794-9b5f-8d67c4c26c4f",
+      "name": "AWS Bedrock Chat Model",
+      "credentials": {
+        "aws": {
+          "id": "Odg3O34ltsyYJyT2",
+          "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        240,
+        320
+      ],
+      "id": "824b8979-b997-4ab7-b178-ca83dddf6113",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -120,
+        320
+      ],
+      "id": "00a232db-1a5b-49a2-8c18-380b9c0a9ae4",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA",
+          "mode": "list",
+          "cachedResultName": "MemoListN8N",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Musiciens",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "NomMusicien": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('NomMusicien', ``, 'string') }}",
+            "Prenom": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prenom', ``, 'string') }}",
+            "TypeMusique": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('TypeMusique', ``, 'string') }}",
+            "DateDeNaissance": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('DateDeNaissance', ``, 'string') }}",
+            "DateMort": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('DateMort', ``, 'string') }}",
+            "OeuvreMajeur": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('OeuvreMajeur', ``, 'string') }}",
+            "Description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "NomMusicien",
+              "displayName": "NomMusicien",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Prenom",
+              "displayName": "Prenom",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "TypeMusique",
+              "displayName": "TypeMusique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DateDeNaissance",
+              "displayName": "DateDeNaissance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DateMort",
+              "displayName": "DateMort",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "OeuvreMajeur",
+              "displayName": "OeuvreMajeur",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "useAppend": false
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        80,
+        300
+      ],
+      "id": "3c84a60b-537f-4a58-ac96-447d9e804046",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vcGCddI90w6RjMUC",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-04-30T10:15:58.000Z",
+  "versionId": "ca9e0d4d-70cf-4bc9-8b42-73a56d076fa9"
+}
