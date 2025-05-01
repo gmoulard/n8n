@@ -17,34 +17,12 @@
         []
       ]
     },
-    "Memory": {
-      "ai_memory": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_memory",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "AWS Bedrock Chat Model": {
       "ai_languageModel": [
         [
           {
             "node": "AI Agent",
             "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "SerpAPI": {
-      "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -61,7 +39,18 @@
         ]
       ]
     },
-    "Google Drive1": {
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
       "ai_tool": [
         [
           {
@@ -89,33 +78,26 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        0,
+        -400,
         0
       ],
       "webhookId": "5ee1fdf0-1eca-495b-8872-4d11d79d5d0d"
     },
     {
       "parameters": {
-        "options": {}
+        "promptType": "define",
+        "text": "=Recherche 1 musicien de {{ $json.chatInput }} qui n'est pas deja dans la sheets et ajoute le dans la sheets",
+        "options": {
+          "systemMessage": "="
+        }
       },
       "id": "7ba1f63b-df3b-4774-a208-e8836afcdce8",
       "name": "AI Agent",
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        220,
+        -160,
         0
-      ]
-    },
-    {
-      "parameters": {},
-      "id": "2854db73-f63c-443b-857d-2237b4723f32",
-      "name": "Memory",
-      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
-      "typeVersion": 1.3,
-      "position": [
-        280,
-        280
       ]
     },
     {
@@ -129,8 +111,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
       "typeVersion": 1,
       "position": [
-        100,
-        280
+        -320,
+        320
       ],
       "id": "2ab009bd-759b-4541-a9c7-cfeb54849d9d",
       "name": "AWS Bedrock Chat Model",
@@ -142,61 +124,155 @@
       }
     },
     {
-      "parameters": {
-        "options": {
-          "gl": ""
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
-      "typeVersion": 1,
-      "position": [
-        420,
-        280
-      ],
-      "id": "bb4e05e5-f9a7-49b4-b96c-62520efec3a2",
-      "name": "SerpAPI",
-      "credentials": {
-        "serpApi": {
-          "id": "PhwBriL6Vbps3Mwh",
-          "name": "SerpAPI account"
-        }
-      }
-    },
-    {
       "parameters": {},
       "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
       "typeVersion": 1,
       "position": [
-        540,
-        280
+        240,
+        320
       ],
       "id": "cdec655c-ec48-4c53-b130-c53ee33b0a4f",
       "name": "Wikipedia"
     },
     {
-      "parameters": {
-        "operation": "download",
-        "fileId": {
-          "__rl": true,
-          "value": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('File', ``, 'string') }}",
-          "mode": "url"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleDriveTool",
-      "typeVersion": 3,
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
       "position": [
-        700,
-        280
+        -120,
+        320
       ],
-      "id": "d0b68921-d0e5-49b6-8f65-8f2da613b322",
-      "name": "Google Drive1",
+      "id": "c4e63f24-ac0f-425e-8a66-a4800ce6425e",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA",
+          "mode": "list",
+          "cachedResultName": "MemoListN8N",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Musiciens",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Zw-O3B9iZWD0xRRiObA1VDgkyEQNVSz8JQjJlIUpYlA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {
+            "NomMusicien": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('NomMusicien', ``, 'string') }}",
+            "Prenom": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prenom', ``, 'string') }}",
+            "TypeMusique": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('TypeMusique', ``, 'string') }}",
+            "DateDeNaissance": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('DateDeNaissance', ``, 'string') }}",
+            "DateMort": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('DateMort', ``, 'string') }}",
+            "OeuvreMajeur": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('OeuvreMajeur', ``, 'string') }}",
+            "Description": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Description', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "NomMusicien",
+              "displayName": "NomMusicien",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Prenom",
+              "displayName": "Prenom",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "TypeMusique",
+              "displayName": "TypeMusique",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DateDeNaissance",
+              "displayName": "DateDeNaissance",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "DateMort",
+              "displayName": "DateMort",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "OeuvreMajeur",
+              "displayName": "OeuvreMajeur",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description",
+              "displayName": "Description",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {
+          "useAppend": false
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.5,
+      "position": [
+        80,
+        300
+      ],
+      "id": "6223fe30-a66a-4643-b6f3-11e963667133",
+      "name": "Google Sheets",
       "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "GOp1drcs3Ajv51lh",
-          "name": "Google Drive account"
+        "googleSheetsOAuth2Api": {
+          "id": "vcGCddI90w6RjMUC",
+          "name": "Google Sheets account"
         }
       }
+    },
+    {
+      "parameters": {
+        "content": "## I'm a note \nMettre dans le prompt le type de musique\n"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -760,
+        140
+      ],
+      "id": "571739db-de23-43c3-8300-40bf2b3cc3ea",
+      "name": "Sticky Note"
     }
   ],
   "pinData": {},
@@ -206,6 +282,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2025-04-29T16:30:00.000Z",
-  "versionId": "4c06ae79-7696-4120-a27a-821e81080f0a"
+  "updatedAt": "2025-04-30T10:31:58.000Z",
+  "versionId": "e1bc648a-3010-4f6c-960e-61f0cbdac8f0"
 }
