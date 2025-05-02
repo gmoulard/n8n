@@ -129,13 +129,7 @@
     },
     "HTTP Request1": {
       "ai_tool": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_tool",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "If": {
@@ -299,7 +293,7 @@
     {
       "parameters": {
         "options": {
-          "gl": ""
+          "gl": "="
         }
       },
       "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
@@ -418,8 +412,8 @@
       "type": "n8n-nodes-base.httpRequestTool",
       "typeVersion": 4.2,
       "position": [
-        -360,
-        40
+        740,
+        -140
       ],
       "id": "7e4ef9c8-0945-4ac3-ab22-a10e6e02fc75",
       "name": "HTTP Request1"
@@ -494,6 +488,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
-  "updatedAt": "2025-04-30T14:47:29.000Z",
-  "versionId": "343b0285-d177-4071-b6b8-26155fdcdef0"
+  "updatedAt": "2025-05-01T21:22:42.000Z",
+  "versionId": "ff105161-9aba-4676-a3d8-39cfa4f4d565"
 }
