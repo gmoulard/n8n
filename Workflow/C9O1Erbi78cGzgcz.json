@@ -1,0 +1,244 @@
+{
+  "active": false,
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AWS Bedrock Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SerpAPI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2025-05-19T08:55:52.458Z",
+  "id": "C9O1Erbi78cGzgcz",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "creationBlogPostGitHubSpeed",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "f3d05128-3f6f-4a2b-9abf-4d66af3d5469",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -780,
+        -240
+      ],
+      "webhookId": "9b832a56-2895-4158-b18e-a106bf4d1bc0"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Créer  un fichier dans le git pour un blogpost fait avec Hugo en markdown. \n\nLe nom du fichier doit commencer par la date {{ $today }} au format annee-mois-jours. \n\nGenere le contenus du blogpost est sur le sujet : {{ $json.chatInput }}. En adoptant un style Legé, humoristique et un peu geek.\n\nPour les metadata de Hugo, ajoute titre, date, draft: true, author, url, type, tags, ,categories\n\nAjoute à la fin un paragraphe 'Remarque' avec \n1. Une histoire drôle sur l'informatique et le sujet du poste\n2. Les refenrence des URL pour avoir plus d'informations sur le sujet\n3. une remarque avec \"Le draft de ce blogpost a été génération avec le Prompt : \"  {{ $('When chat message received').item.json.chatInput }}\n\n",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=",
+          "returnIntermediateSteps": true
+        }
+      },
+      "id": "50848827-838b-42e4-8ba7-b2677b0cd7ca",
+      "name": "AI Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        -380,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "model": "anthropic.claude-3-5-sonnet-20240620-v1:0",
+        "options": {
+          "maxTokensToSample": 8000,
+          "temperature": 0.7
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatAwsBedrock",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        180
+      ],
+      "id": "ba52fc4c-8db4-4fb4-ac4f-88f774dfac50",
+      "name": "AWS Bedrock Chat Model1",
+      "credentials": {
+        "aws": {
+          "id": "Odg3O34ltsyYJyT2",
+          "name": "AWS account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "gl": "="
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolSerpApi",
+      "typeVersion": 1,
+      "position": [
+        320,
+        360
+      ],
+      "id": "96905cfc-5246-42de-b77f-5f31a3a5e61b",
+      "name": "SerpAPI",
+      "credentials": {
+        "serpApi": {
+          "id": "PhwBriL6Vbps3Mwh",
+          "name": "SerpAPI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "tommoulard",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "=blog",
+          "mode": "name"
+        },
+        "filePath": "={{ $fromAI('File_Path', ``, 'string') }}",
+        "fileContent": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('File_Content', ``, 'string') }}",
+        "commitMessage": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Commit_Message', ``, 'string') }}"
+      },
+      "type": "n8n-nodes-base.githubTool",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        100
+      ],
+      "id": "602119e6-abd7-4a50-9258-d5697db906cd",
+      "name": "GitHub",
+      "webhookId": "e5cd8f61-181b-4fe1-847a-40535eeecdc5",
+      "credentials": {
+        "githubApi": {
+          "id": "ip6f04XJlkJqCZbK",
+          "name": "GitHub account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('When chat message received').item.json.sessionId }}",
+        "contextWindowLength": 15
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -500,
+        160
+      ],
+      "id": "f7bb599a-c61b-4f8d-a046-e2e3b6ec7378",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        460,
+        320
+      ],
+      "id": "03d79795-47da-4860-9cfd-1e385071b664",
+      "name": "Wikipedia"
+    },
+    {
+      "parameters": {
+        "content": "## repo \n\ngithub : https://github.com/tomMoulard/\nHugo Site : https://blog.moulard.org",
+        "height": 180,
+        "width": 420
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -780,
+        -480
+      ],
+      "id": "fa2f7dbd-0a8c-4a6b-810f-38347783e210",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-05-19T12:45:23.000Z",
+  "versionId": "67026753-87c3-46c4-8b79-713ba9a9becc"
+}
