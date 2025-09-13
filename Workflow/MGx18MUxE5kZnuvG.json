@@ -48,6 +48,7 @@
   },
   "createdAt": "2025-04-17T14:58:08.126Z",
   "id": "MGx18MUxE5kZnuvG",
+  "isArchived": false,
   "meta": {
     "templateId": "PT1i+zU92Ii5O2XCObkhfHJR5h9rNJTpiCIkYJk9jHU=",
     "templateCredsSetupCompleted": true
@@ -158,6 +159,15 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "createdAt": "2025-04-17T14:58:08.138Z",
+      "updatedAt": "2025-04-17T14:58:08.138Z",
+      "role": "workflow:owner",
+      "workflowId": "MGx18MUxE5kZnuvG",
+      "projectId": "gtybhoBttqKx3oFJ"
+    }
+  ],
   "staticData": null,
   "tags": [],
   "triggerCount": 1,
