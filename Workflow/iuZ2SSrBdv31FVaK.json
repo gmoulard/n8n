@@ -103,6 +103,7 @@
   },
   "createdAt": "2025-04-30T07:56:23.517Z",
   "id": "iuZ2SSrBdv31FVaK",
+  "isArchived": false,
   "meta": null,
   "name": "SRT",
   "nodes": [
@@ -530,6 +531,15 @@
   "settings": {
     "executionOrder": "v1"
   },
+  "shared": [
+    {
+      "createdAt": "2025-04-30T07:56:23.526Z",
+      "updatedAt": "2025-04-30T07:56:23.526Z",
+      "role": "workflow:owner",
+      "workflowId": "iuZ2SSrBdv31FVaK",
+      "projectId": "gtybhoBttqKx3oFJ"
+    }
+  ],
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
